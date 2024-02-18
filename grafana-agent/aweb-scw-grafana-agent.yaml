@@ -1,0 +1,55 @@
+server:
+  log_level: info
+
+metrics:
+  wal_directory: /tmp/agent
+  global:
+    scrape_interval: 60s
+    remote_write:
+    - url: 
+      headers:
+        "X-Token": <your metrics push token>
+
+  configs:
+    - name: agent
+      scrape_configs:
+        # Postfix config
+        - job_name: postfix
+          static_configs:
+          - targets: [hostname:9154]
+            labels:
+              job: postfix
+
+logs:
+  positions_directory: /tmp/positions/
+  configs:
+  - name: scw
+    clients:
+    - url: https://logs.cockpit.fr-par.scw.cloud/loki/api/v1/push
+      tenant_id: <your logs push token>
+    scrape_configs:
+    - job_name: varlogs
+      static_configs:
+      - targets: [hostname]
+        labels:
+          job: varlogs
+          __path__: /var/log/*.log
+
+integrations:
+  node_exporter:
+    enabled: true
+    rootfs_path: /root
+    sysfs_path: /sys
+    procfs_path: /proc
+    # Anything not provided in the list below will be disabled by default
+    set_collectors:
+    - uname
+    - cpu
+    - loadavg
+    - meminfo
+    - filesystem
+    - netdev
+    - boottime
+    - time
+    - stat
+    
