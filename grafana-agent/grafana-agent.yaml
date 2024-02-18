@@ -1,3 +1,6 @@
+# /etc/grafana-agent.yaml
+# For Scaleway cloud
+
 server:
   log_level: info
 
@@ -16,7 +19,7 @@ metrics:
         # Postfix config
         - job_name: postfix
           static_configs:
-          - targets: [hostname:9154]
+          - targets: [<your hostname>:9154]
             labels:
               job: postfix
 
@@ -30,7 +33,7 @@ logs:
     scrape_configs:
     - job_name: varlogs
       static_configs:
-      - targets: [hostname]
+      - targets: [<your hostname>]
         labels:
           job: varlogs
           __path__: /var/log/*.log
