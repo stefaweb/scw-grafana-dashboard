@@ -55,6 +55,5 @@ integrations:
     - boottime
     - time
     - stat
-    - netclass
 
     
