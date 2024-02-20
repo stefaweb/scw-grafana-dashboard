@@ -25,7 +25,7 @@ metrics:
             labels:
               job: postfix
         # NGINX config
-        # Need "location /stub_status definition in Nginx"
+        # Default exporter access is "http://localhost:8080/stub_status"
         - job_name: nginx
           static_configs:
           - targets: [<your hostname>:9113]
