@@ -25,6 +25,7 @@ metrics:
             labels:
               job: postfix
         # NGINX config
+        # Need "location /stub_status definition in Nginx"
         - job_name: nginx
           static_configs:
           - targets: [<your hostname>:9113]
