@@ -1,4 +1,5 @@
 # /etc/grafana-agent.yaml
+# To use with grafana-agent binary.
 # For Scaleway cloud.
 # Remove parts not used.
 
@@ -72,7 +73,7 @@ integrations:
   agent:
     enabled: true
     metric_relabel_configs:
-    # Required for apache integration.
+    # Required for Apache integration.
     # Scraping agent endpoint is required for apache histogram metric collection.
       - source_labels: [exported_job]
         target_label: job
