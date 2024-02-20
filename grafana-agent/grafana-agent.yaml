@@ -26,7 +26,7 @@ metrics:
         # NGINX config
         - job_name: nginx
           static_configs:
-          - targets: [mailhub-aweb:9113]
+          - targets: [<your hostname>:9113]
             labels:
               job: nginx
 
