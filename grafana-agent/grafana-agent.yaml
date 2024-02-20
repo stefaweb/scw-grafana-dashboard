@@ -52,6 +52,7 @@ integrations:
     sysfs_path: /sys
     procfs_path: /proc
     # Anything not provided in the list below will be disabled by default
+    # Be carefull with collectors, they can be very verbose (aka expensive).
     set_collectors:
     - uname
     - cpu
@@ -71,8 +72,8 @@ integrations:
   agent:
     enabled: true
     metric_relabel_configs:
-    # required for apache integration.
-    # scraping agent endpoint is required for apache histogram metric collection.
+    # Required for apache integration.
+    # Scraping agent endpoint is required for apache histogram metric collection.
       - source_labels: [exported_job]
         target_label: job
       - source_labels: [exported_instance]
