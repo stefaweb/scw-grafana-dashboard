@@ -1,5 +1,6 @@
 # /etc/grafana-agent.yaml
-# For Scaleway cloud
+# For Scaleway cloud.
+# Remove parts not used.
 
 server:
   log_level: info
@@ -22,6 +23,12 @@ metrics:
           - targets: [<your hostname>:9154]
             labels:
               job: postfix
+        # NGINX config
+        - job_name: nginx
+          static_configs:
+          - targets: [mailhub-aweb:9113]
+            labels:
+              job: nginx
 
 logs:
   positions_directory: /tmp/positions/
@@ -55,5 +62,22 @@ integrations:
     - boottime
     - time
     - stat
+
+  apache_http:
+    enabled: true
+    instance: <your hostname>
+    scrape_uri: 'http://localhost/server-status?auto'
+
+  agent:
+    enabled: true
+    metric_relabel_configs:
+    # required for apache integration.
+    # scraping agent endpoint is required for apache histogram metric collection.
+      - source_labels: [exported_job]
+        target_label: job
+      - source_labels: [exported_instance]
+        target_label: instance
+      - regex: (exported_instance|exported_job)
+        action: labeldrop
 
     
